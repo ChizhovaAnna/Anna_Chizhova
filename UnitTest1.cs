@@ -53,7 +53,7 @@ namespace selenium_h_w
             
 
             string _username = "abcdf"+ Convert.ToString(rnd.Next());
-            string _user_password = "FGHJg5672jv";//+ _username;
+            string _user_password = "F233Giom2jv" + _username;
 
             var login = driver.FindElement(_loginInputButton);
             login.SendKeys(_login);
