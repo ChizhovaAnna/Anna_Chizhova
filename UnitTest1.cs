@@ -3,7 +3,7 @@ using NUnit.Framework;
 using RestSharp;
 
 
-namespace WebApi
+namespace WebAPI
 {
     public class Tests
     {
