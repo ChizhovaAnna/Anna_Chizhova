@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -50,10 +50,11 @@ namespace selenium_h_w
         [Test]
         public void Test1()
         {
-            
-
+            driver = new OpenQA.Selenium.Chrome.ChromeDriver();
+            driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
+            string result;
             string _username = "abcdf"+ Convert.ToString(rnd.Next());
-            string _user_password = "F233Giom2jv" + _username;
+            string _user_password = "fgcv344fggFCC4552";//+ _username;
 
             var login = driver.FindElement(_loginInputButton);
             login.SendKeys(_login);
@@ -82,24 +83,28 @@ namespace selenium_h_w
             var user_password_confirm = driver.FindElement(_userPasswordConfirmInput);
             user_password_confirm.SendKeys(_user_password);
 
-            var save = driver.FindElement(_saveButton);
-            save.Click();
+            while (driver.Url != "https://opensource-demo.orangehrmlive.com/index.php/admin/viewSystemUsers") {
 
-            Thread.Sleep(50000);
+                var save = driver.FindElement(_saveButton);
+                save.Click();
+                Thread.Sleep(1000);
+
+            }
+            //Thread.Sleep(50000);
             var search = driver.FindElement(_searchInput);
 
             search.SendKeys(_username);
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 
             var search_button = driver.FindElement(_searchButton);
             search_button.Click();
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 
             if (this.driver.PageSource.Contains(_username));
            
             var reset = driver.FindElement(_resetButton);
             reset.Click();
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 
             if (this.driver.PageSource.Contains(_username)) ;
               
@@ -107,21 +112,39 @@ namespace selenium_h_w
             string[] Id = href.Split('=');
             string id = Id[1];
             this.driver.FindElement(By.Id("ohrmList_chkSelectRecord_" + id)).Click();
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 
             var delete = driver.FindElement(_deleteButton);
             delete.Click();
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 
             var delete_ok = driver.FindElement(_deleteOkButton);
             delete_ok.Click();
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 
-            if (this.driver.PageSource.Contains(_username)) ;
-              
+            if (this.driver.PageSource.Contains(_username))
+            {
+                result="0";
+            }
+            else
+            {
+                result = "1";
+            }
 
-            //Assert.Pass();
+            driver.Quit();
+            Assert.AreEqual(result, "1");
+            
         }
+
+        [Test]
+        public void test()
+        {
+            Test1();
+            Test1();
+            Test1();
+        }
+
         
     }
+   
 }
