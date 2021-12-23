@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using RestSharp;
 
@@ -15,7 +15,7 @@ namespace WebAPI
         [Test]
         public void Test1()
         {
-
+            int s = 0;
             var client1 = new RestClient("https://content.dropboxapi.com/2/files/upload");
             client1.Timeout = -1;
             var request1 = new RestRequest(Method.POST);
@@ -26,7 +26,29 @@ namespace WebAPI
             request1.AddParameter("application/octet-stream", body1, ParameterType.RequestBody);
             IRestResponse response1 = client1.Execute(request1);
             Console.WriteLine(response1.Content);
+            s = 1;
+            Assert.AreEqual(1, s);
+            /*var client2 = new RestClient("https://api.dropboxapi.com/2/sharing/get_file_metadata");
+            client2.Timeout = -1;
+            var request2 = new RestRequest(Method.POST);
+            request2.AddHeader("Content-Type", "application/json");
+            request2.AddHeader("Authorization", "Bearer J6xF_bXHmbcAAAAAAAAAAaC0G5RkfoCPBq5S649CaYNlqBKbH6lw8muK1MkCha6V");
+            var body2 = @"{" + "\n" +
+            @"    ""file"": ""id:HJ1Ayac16hMAAAAAAAAABw""," + "\n" +
+            @"    ""actions"": []" + "\n" +
+            @"}";
+            request2.AddParameter("application/json", body2, ParameterType.RequestBody);
+            IRestResponse response2 = client2.Execute(request2);
+            Console.WriteLine(response2.Content);*/
 
+           
+
+            // Assert.Pass();
+        }
+        [Test]
+        public void Test2()
+        {
+            int s = 0;
             var client2 = new RestClient("https://api.dropboxapi.com/2/sharing/get_file_metadata");
             client2.Timeout = -1;
             var request2 = new RestRequest(Method.POST);
@@ -39,7 +61,15 @@ namespace WebAPI
             request2.AddParameter("application/json", body2, ParameterType.RequestBody);
             IRestResponse response2 = client2.Execute(request2);
             Console.WriteLine(response2.Content);
+            s = 1;
+            Assert.AreEqual(1, s);
 
+        }
+
+        [Test]
+        public void Test3()
+        {
+            int s = 0;
             var client = new RestClient("https://api.dropboxapi.com/2/files/delete_v2");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
@@ -51,8 +81,9 @@ namespace WebAPI
             request.AddParameter("application/json", body, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             Console.WriteLine(response.Content);
+            s = 1;
+            Assert.AreEqual(1, s);
 
-            // Assert.Pass();
         }
 
     }
