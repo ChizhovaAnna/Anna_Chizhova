@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 
 namespace selenium_h_w
 {
+    [TestFixture()]
     public class Tests
     {
         private IWebDriver driver;
@@ -23,13 +24,14 @@ namespace selenium_h_w
         private readonly By _resetButton = By.XPath("//input[@name='_reset']");
         private readonly By _deleteButton = By.XPath("//input[@name='btnDelete']");
         private readonly By _deleteOkButton = By.XPath("//input[@id='dialogDeleteBtn']");
-
-
-
-
-
-
         Random rnd = new Random();
+        //string _username = "abcdf"+ Convert.ToString(rnd.Next());
+
+
+
+
+
+        
         
         private string name = Convert.ToString(5);
         private const string _login = "Admin";
@@ -42,18 +44,18 @@ namespace selenium_h_w
         public void Setup()
         {
 
-            driver = new OpenQA.Selenium.Chrome.ChromeDriver();
-            driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
+            
 
         }
 
         [Test]
         public void Test1()
         {
+            string _username = "abcdfk";
             driver = new OpenQA.Selenium.Chrome.ChromeDriver();
             driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
-            string result;
-            string _username = "abcdf"+ Convert.ToString(rnd.Next());
+            int result;
+            
             string _user_password = "fgcv344fggFCC4552";//+ _username;
 
             var login = driver.FindElement(_loginInputButton);
@@ -90,61 +92,75 @@ namespace selenium_h_w
                 Thread.Sleep(1000);
 
             }
-            //Thread.Sleep(50000);
             var search = driver.FindElement(_searchInput);
 
             search.SendKeys(_username);
-            //Thread.Sleep(10000);
 
             var search_button = driver.FindElement(_searchButton);
             search_button.Click();
-            //Thread.Sleep(10000);
-
-            if (this.driver.PageSource.Contains(_username));
-           
-            var reset = driver.FindElement(_resetButton);
-            reset.Click();
-            //Thread.Sleep(10000);
-
-            if (this.driver.PageSource.Contains(_username)) ;
-              
-            string href = this.driver.FindElement(By.LinkText(_username)).GetAttribute("href");
-            string[] Id = href.Split('=');
-            string id = Id[1];
-            this.driver.FindElement(By.Id("ohrmList_chkSelectRecord_" + id)).Click();
-            //Thread.Sleep(10000);
-
-            var delete = driver.FindElement(_deleteButton);
-            delete.Click();
-            //Thread.Sleep(10000);
-
-            var delete_ok = driver.FindElement(_deleteOkButton);
-            delete_ok.Click();
-            //Thread.Sleep(10000);
 
             if (this.driver.PageSource.Contains(_username))
             {
-                result="0";
+                result = 1; 
             }
             else
             {
-                result = "1";
+                result = 0;
             }
-
-            driver.Quit();
-            Assert.AreEqual(result, "1");
+            Assert.AreEqual(result, 1);
             
         }
 
         [Test]
-        public void test()
+        public void Test2()
         {
-            Test1();
-            Test1();
-            Test1();
+            var reset = driver.FindElement(_resetButton);
+            reset.Click();
+            string _username = "abcdfk";
+            int result;
+
+            if (this.driver.PageSource.Contains(_username))
+            {
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
+            Assert.AreEqual(result, 1);
+            
+
+        }
+        [Test]
+        public void Test3()
+        {
+            int result;
+            string _username = "abcdfk";
+            string href = this.driver.FindElement(By.LinkText(_username)).GetAttribute("href");
+            string[] Id = href.Split('=');
+            string id = Id[1];
+            this.driver.FindElement(By.Id("ohrmList_chkSelectRecord_" + id)).Click();
+
+            var delete = driver.FindElement(_deleteButton);
+            delete.Click();
+
+            var delete_ok = driver.FindElement(_deleteOkButton);
+            delete_ok.Click();
+
+            if (this.driver.PageSource.Contains(_username))
+            {
+                result = 0;
+            }
+            else
+            {
+                result = 1;
+            }
+
+            driver.Quit();
+            Assert.AreEqual(result, 1);
         }
 
-        
+
     }
    
 }
